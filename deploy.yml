@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kubernetes.io/change-cause: "deploying beauty v2"
+  name: deploy1
+spec:
+  replicas: 2
+  selector:
+     matchLabels:
+       client: ecom
+  template:
+    metadata:
+      labels:
+        client: ecom
+    spec:
+      containers:
+        - name: cont1
+          image: shaikmustafa/cycle
+          ports:
+            - containerPort: 80
+  

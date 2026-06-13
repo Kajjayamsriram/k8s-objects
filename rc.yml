@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: rc1
+spec:
+  replicas: 2
+  selector:
+    client: ecom
+  template:
+    metadata:
+      labels:
+        client: ecom
+    spec:
+      containers:
+        - name: cont1
+          image: sriramk16/beauty
+          ports:
+            - containerPort: 80
