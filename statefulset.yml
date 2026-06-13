@@ -17,7 +17,21 @@ spec:
     spec:
       containers:
         - name: cont1
-          image: mysql:8.0
+          image: sriramk16/opdb
           ports:
             - containerPort: 3306
-  
+
+          volumeMounts:
+            - name: db-backup
+              mountPath: /var/lib/mysql
+  volumeClaimTemplates:
+  - metadata:
+      name: db-backup
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+         storage: 2Gi
+
+
