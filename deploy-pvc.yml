@@ -6,7 +6,8 @@ metadata:
     kubernetes.io/change-cause: "deploying beauty v2"
   name: deploy1
 spec:
-  replicas: 2
+  replicas: 1
+  #with 2 replicas getting problem of 2 pods in diff nodes trying to attach single volume
   selector:
      matchLabels:
        client: ecom

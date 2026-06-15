@@ -6,12 +6,10 @@ metadata:
 spec:
   storageClassName: manual
   capacity:
-    storage: 10Gi
+    storage: 5Gi
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Delete
   awsElasticBlockStore:
-    volumeID: vol-02a670103e64a6735
+    volumeID: vol-00e00128d0a0e5cba
     fsType: ext4
-
-
