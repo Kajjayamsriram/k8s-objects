@@ -1,0 +1,20 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: ds1
+spec:
+  selector:
+    matchLabels:
+      app: logging
+  template:
+    metadata:
+       labels:
+         app: logging
+    spec:
+      containers:
+      - name: cont1
+        image: busybox
+        command: ["/bin/sh", "-c"] #Entrypoint in docker
+        args:  #As, Cmd in docker
+          - while true; do echo "Running on host $(hostname)"; sleep 30;done 

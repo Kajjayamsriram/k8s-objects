@@ -2,14 +2,13 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  annotations:
-    kubernetes.io/change-cause: "deploying Stateful"
   name: ss1
 spec:
+  serviceName: dbsvc
   replicas: 2
   selector:
-     matchLabels:
-       app: db
+    matchLabels:
+      app: db
   template:
     metadata:
       labels:
@@ -19,19 +18,19 @@ spec:
         - name: cont1
           image: sriramk16/opdb
           ports:
-            - containerPort: 3306
+            - containerPort: 80
 
           volumeMounts:
-            - name: db-backup
-              mountPath: /var/lib/mysql
+           - name: dbvol
+             mountPath: /var/lib/mysql
   volumeClaimTemplates:
-  - metadata:
-      name: db-backup
-    spec:
-      accessModes:
-      - ReadWriteOnce
-      resources:
-        requests:
-         storage: 2Gi
+    - metadata:
+        name: dbvol
+      spec:
+        accessModes: 
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 2Gi
 
 
