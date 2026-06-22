@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: rq1
+  namespace: test
+spec:
+  hard:
+    requests.cpu: "500m"
+    requests.memory: "500Mi"
+    limits.cpu: "750m"
+    limits.memory: "750Mi"
+    pods: "2"
+    persistentvolumeclaims: "6"
+    requests.storage: "50Gi"
+    services.loadbalancers: "2"
