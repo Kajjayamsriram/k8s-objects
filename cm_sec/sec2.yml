@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: sec2
+type: Opaque
+data:
+  API_TOKEN: "dGtuXzl6MmI4eDR2X21ROTBQTGtYejUxQXF3UnRZdTczCg=="
+  APP_USER: "YXdzCg=="

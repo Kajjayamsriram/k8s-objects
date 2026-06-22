@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: sec1
+type: Opaque
+data:
+  MYSQL_ROOT_PASSWORD: "cGFzczEyd29yZDEzCg=="
+  MYSQL_USERNAME: "dmlyYXQK"
