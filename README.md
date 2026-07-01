@@ -1,12 +1,12 @@
 # k8s-objects
 
-#Argocd application deployment
+# Argocd application deployment
 ```
 kubectl apply -f argocd-deploy/argocd.yaml -n argocd
 kubectl delete app devtest -n argocd
 ```
 
-###Note: Requires Argocd installation
+### Note: Requires Argocd installation
 ```
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
