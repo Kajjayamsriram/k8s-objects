@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod3
+  labels:
+   app: zomato
+spec:
+  containers:
+    - name: cont1
+      image: nginx
+
