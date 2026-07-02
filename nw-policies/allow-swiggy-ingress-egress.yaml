@@ -28,4 +28,4 @@ spec:
               app: db
       ports:
         - protocol: TCP
-          port: 80        
+          port: 3306        
