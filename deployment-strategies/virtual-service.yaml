@@ -14,8 +14,12 @@ spec:
       - destination:
           host: reviews
           subset: v2
-        weight: 0
+        weight: 30
       - destination:
           host: reviews
           subset: v3
-        weight: 100
+        weight: 60
+      retries:
+        attempts: 3
+        perTryTimeout: 2s
+        retryOn: 5xx,connect-failure
