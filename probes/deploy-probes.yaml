@@ -1,0 +1,50 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: swiggy
+  template:
+    metadata:
+      labels:
+        app: swiggy
+    spec:
+      containers:
+       - name: cont1
+         image: mendhak/http-https-echo
+         ports:
+           - containerPort: 8080
+         
+       - name: sidecar
+         image: busybox
+         command: ["/bin/sh", "-c", "touch /tmp/health /tmp/ready && sleep 10000"]
+         
+         startupProbe:
+           tcpSocket:
+             port: 8080
+           failureThreshold: 3
+           periodSeconds: 10
+         
+        # readinessProbe:
+         #  httpGet:
+          #   path: /ready
+           #  port: 8080
+          # periodSeconds: 5
+          # timeoutSeconds: 20i
+          # For http get request check
+         
+         readinessProbe:
+           exec:
+             command: ["ls", "/tmp/ready"]
+           periodSeconds: 5
+           timeoutSeconds: 20
+
+         livenessProbe:
+           exec:
+             command: ["ls", "/tmp/health"]
+           periodSeconds: 5
+           timeoutSeconds: 20
