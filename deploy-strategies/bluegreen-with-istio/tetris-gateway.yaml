@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: tetris-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - a5353f59049d948d38e38139e0b808b9-1712396770.us-east-2.elb.amazonaws.com 
+      #process requests whose Host header equals ELB DNS name
