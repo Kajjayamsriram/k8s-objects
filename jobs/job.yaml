@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: batchjob
+spec:
+  completions: 4
+  parallelism: 2
+  backoffLimit: 2
+  template:
+    spec:
+      containers:
+        - name: sales-report
+          image: busybox
+          command:
+            - sh
+            - -c
+            - |
+              echo "Grabbing Sales Data for region ohio"
+              sleep 30
+              echo "Done"
+      restartPolicy: Never
