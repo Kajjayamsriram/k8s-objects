@@ -1,0 +1,13 @@
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: tetris-dr
+spec:
+  host: tetris
+  subsets:
+    - name: blue
+      labels:
+        version: v1
+    - name: green
+      labels:
+        version: v2

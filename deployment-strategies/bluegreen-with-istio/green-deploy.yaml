@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tetris-green
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      version: v2
+      app: tetris
+  template:
+    metadata:
+      labels:
+        version: v2
+        app: tetris
+    spec:
+      containers:
+        - name: cont1
+          image: shaikmustafa/mytetrisgame:v2
+          ports:
+            - containerPort: 3000
