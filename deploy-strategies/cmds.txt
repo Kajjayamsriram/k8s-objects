@@ -3,3 +3,4 @@ seq 1 1000 | xargs -P 50 -I{} curl -s productpage:9080/productpage
 
 
 #Inside the deafult with envoy curl works but in diff ns without envoy comm doesn't works, if mtls is STRICT
+#Here destinationRule and virtualService is for bookinfoApp
