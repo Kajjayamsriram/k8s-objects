@@ -1,0 +1,9 @@
+#Install prometheus stack Alertmanager, Grafana
+helm install prometheus oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
+#To view Grafana Dashboard password 
+kubectl --namespace default get secrets prometheus-grafana -o jsonpath="{.data.admin-password}" | base64 -d ; echo
+
+#Expose service to access
+kubectl get svc
+kubectl patch svc prometheus-grafana  -p '{"spec":{"type":"LoadBalancer"}}'
+kubectl patch svc prometheus-kube-prometheus-prometheus  -p '{"spec":{"type":"LoadBalancer"}}'

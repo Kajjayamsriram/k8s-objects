@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: container-cpu-alert
+  labels:
+    release: prometheus
+spec:
+  groups:
+    - name: container.rules
+      rules:
+        - alert: HighContainerCPU
+          expr: rate(container_cpu_usage_seconds_total{container!="",container!="POD"}[5m]) * 100 > 60
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High CPU usage"
+            description: "Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} is using more than 60% CPU."
