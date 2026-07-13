@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ss1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+        - name: cont1
+          image: sriramk16/opdb
+
+          volumeMounts:
+            - name: vol1
+              mountPath: /var/lib/mysql
+  volumeClaimTemplates:
+    - metadata:
+        name: vol1
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: ebs-gp3
+        resources:
+          requests:
+            storage: 2Gi

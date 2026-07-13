@@ -1,0 +1,39 @@
+#Install etcdctl
+ETCD_VER=v3.5.16
+curl -L https://github.com/etcd-io/etcd/releases/download/${ETCD_VER}/etcd-${ETCD_VER}-linux-amd64.tar.gz -o etcd.tar.gz
+tar -xzf etcd.tar.gz
+sudo mv etcd-${ETCD_VER}-linux-amd64/etcdctl /usr/local/bin/
+
+#To work with latest version3
+export ETCDCTL_API=3 
+
+sudo etcdctl --endpoints=https://127.0.0.1:2379 \
+  --cacert=<trusted-ca-file> \
+  --cert=<cert-file> \
+  --key=<key-file> \
+  snapshot save /opt/etcd-backup.db
+
+#verify snapshot -fyi
+sudo etcdutl --write-out=table snapshot status /opt/etcd-backup.db
+
+#view snapshot size
+du -sh /opt/etcd-backup.db
+
+#stop kubelet 
+systemctl stop kubelet
+
+sudo etcdutl --endpoints=https://127.0.0.1:2379 \
+  --cacert=<trusted-ca-file> \
+  --cert=<cert-file> \
+  --key=<key-file> \
+  snapshot restore /opt/etcd-backup.db --data-dir /var/lib/etcd-backup
+
+#move the backup to etcd dir
+mv /var/lib/etcd /tmp/etcd-bkp
+mv /var/lib/etcd-backup /var/lib/etcd
+
+#start kubelet and restart api components
+systemctl start kubelet
+mv /etc/kubernetes/manifests/*.yaml /tmp/api-com
+sleep 5
+mv /tmp/api-com/*.yaml /etc/kubernetes/manifests
