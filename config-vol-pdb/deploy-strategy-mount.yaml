@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mount-config
+spec:
+  replicas: 4
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1 #replicas+1 =3 during update by deleting old pod
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: cont1
+          image: nginx
+          volumeMounts:
+            - name: configvol
+              mountPath: /etc/config
+      volumes:
+        - name: configvol
+          configMap:
+            name: app-config
+
+#Stateful
+# podManagementPolicy: OrderedReady #Create/Delete in sequence  
+# podManagementPolicy: Parallel #Create/Delete in parallel
+#updateStrategy:
+#  type: RollingUpdate  # Automatically updates Pods one after another 
+#  type: OnDelete # Image will be updated after pod deletion
+#  rollingUpdate:
+#    partition: 1 # ordinal => db-1 will be updated used for canary/staged rollout

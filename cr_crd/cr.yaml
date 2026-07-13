@@ -1,0 +1,7 @@
+apiVersion: custom.io/v1
+kind: App
+metadata:
+  name: custom-app
+spec:
+  image: ngnix
+  replicas: 3

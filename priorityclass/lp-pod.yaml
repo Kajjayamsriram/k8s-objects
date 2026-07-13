@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: lp-pod1
+spec:
+  priorityClassName: low-priority
+  containers:
+  - name: nginx-cont
+    image: nginx
+    resources:
+      limits:
+        cpu: "450m"
+        memory: "456Mi"
+      requests:
+        cpu: "350m"
+        memory: "356Mi"

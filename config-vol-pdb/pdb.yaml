@@ -1,0 +1,10 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: pdb-pod
+spec:
+  minAvailable: 2
+  #maxUnavailable: 4
+  selector: 
+    matchLabels:
+      app: frontend
